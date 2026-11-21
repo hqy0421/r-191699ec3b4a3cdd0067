@@ -11,6 +11,7 @@ from pygam.pygam import (
     LogisticGAM,
     PoissonGAM,
 )
+from pygam.planning import Change, Plan, recommend_plan
 from pygam.terms import f, intercept, l, s, te
 
 __all__ = [
@@ -21,6 +22,9 @@ __all__ = [
     "PoissonGAM",
     "InvGaussGAM",
     "ExpectileGAM",
+    "Change",
+    "Plan",
+    "recommend_plan",
     "l",
     "s",
     "f",

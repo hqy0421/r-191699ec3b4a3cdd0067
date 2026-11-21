@@ -8,6 +8,7 @@ API Reference
     :recursive:
 
     pygam.pygam
+    pygam.planning
     pygam.terms
     pygam.distributions
     pygam.links

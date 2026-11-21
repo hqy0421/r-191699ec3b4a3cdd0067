@@ -2681,6 +2681,43 @@ class LogisticGAM(GAM):
         """
         return self.predict_mu(X)
 
+    def recommend_plan(self, order, adjustable, budget, max_probability):
+        """Recommend the cheapest plan that lowers an order's predicted risk.
+
+        This is a thin wrapper around :func:`pygam.planning.recommend_plan` for
+        a fitted, interaction-free ``LogisticGAM``.
+
+        Parameters
+        ----------
+        order : array-like of shape (m_features,) or (1, m_features)
+            The features of a single order. Features that are not adjustable are
+            held exactly at these values.
+        adjustable : mapping or sequence
+            Adjustable features mapped to their candidate values and integer
+            costs. See :func:`pygam.planning.recommend_plan`.
+        budget : int
+            Maximum total cost of the plan.
+        max_probability : float
+            The largest acceptable predicted probability, in ``[0, 1]``.
+
+        Returns
+        -------
+        Plan
+            The chosen plan, its cost, the changes, and the probabilities before
+            and after. If no plan within ``budget`` reaches ``max_probability``,
+            the result has ``feasible == False`` and a message explaining the
+            best achievable probability.
+        """
+        from pygam.planning import recommend_plan
+
+        return recommend_plan(
+            self,
+            order=order,
+            adjustable=adjustable,
+            budget=budget,
+            max_probability=max_probability,
+        )
+
 
 class PoissonGAM(GAM):
     """Poisson GAM.
